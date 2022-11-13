@@ -16,7 +16,18 @@ public class Enemy : MonoBehaviour
          navMeshAgent.SetDestination(type.Tower.position);
      }
 
-     private void Update()
+     private void OnTriggerEnter(Collider other)
+     {
+         if (other.CompareTag("Bullet"))
+         {
+             life--;
+             CheckLifes();
+         }
+         if(other.CompareTag("Tower"))
+             Debug.Log("Vida player");
+     }
+
+     private void CheckLifes()
      {
          if (life <= 0)
          {
