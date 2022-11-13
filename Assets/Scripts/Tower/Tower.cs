@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace Turret
+namespace Tower
 {
-    public class Turret : MonoBehaviour
+    public class Tower : MonoBehaviour
     {
-        public static Turret Instance;
+        public static Tower Instance;
 
         [SerializeField] private int life = 10;
 

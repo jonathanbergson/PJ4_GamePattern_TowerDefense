@@ -1,4 +1,5 @@
 ﻿public struct Constants
 {
-    public static string TagEnemie = "Enemie";
+    public const string TagEnemy = "Enemie";
+    public static string TagTower = "Tower";
 }

@@ -1,19 +1,21 @@
 using Bullet;
 using UnityEngine;
 
-namespace Turret
+namespace Tower
 {
     public class TurretShoot : MonoBehaviour
     {
         private float _timeRef;
         [SerializeField] protected float frequency = 1f;
+        [SerializeField] protected float gizmoRange = 10f;
 
         [Header("Bullet")]
         [SerializeField] private BulletMovement bulletPrefab;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private BulletTypes bulletType = BulletTypes.Simple;
 
-        [Header("Enemie")] [SerializeField] private Transform enemyTransform;
+        [Header("Enemie")]
+        [SerializeField] private Transform enemyTransform;
 
         private void Start()
         {
@@ -29,9 +31,28 @@ namespace Turret
 
         private void HandleChoiceEnemy()
         {
-            if (enemyTransform == null)
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(Constants.TagEnemy);
+            GameObject enemyClose = null;
+            float distanceToEnemyClose = Mathf.Infinity;
+
+            foreach (var enemy in enemies)
             {
-                GameObject.FindGameObjectWithTag(Constants.TagEnemie);
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+
+                if (distanceToEnemy < distanceToEnemyClose)
+                {
+                    distanceToEnemyClose = distanceToEnemy;
+                    enemyClose = enemy;
+                }
+            }
+
+            if (enemyClose != null && distanceToEnemyClose < gizmoRange)
+            {
+                enemyTransform = enemyClose.transform;
+            }
+            else
+            {
+                enemyTransform = null;
             }
         }
 
@@ -53,7 +74,7 @@ namespace Turret
         {
             if (Time.time >= _timeRef == false) return;
 
-            Shoot();
+            if (enemyTransform) Shoot();
             IncrementTimeToShoot();
         }
 
@@ -62,16 +83,20 @@ namespace Turret
             BulletMovement bullet = Instantiate(bulletPrefab, null);
             bullet.transform.position = bulletSpawnPoint.position;
 
+            Vector3 enemyDirection = (enemyTransform.transform.position - bulletSpawnPoint.transform.position).normalized;
+
             switch (bulletType)
             {
                 case BulletTypes.Explosive:
-                    frequency = 3.0f;
-                    bullet.SetBehaviour(new BulletExplosive(), Vector3.forward);
+                    frequency = 3f;
+                    gizmoRange = 5f;
+                    bullet.SetBehaviour(new BulletExplosive(), enemyDirection);
                     break;
                 case BulletTypes.Simple:
                 default:
                     frequency = 0.5f;
-                    bullet.SetBehaviour(new BulletSimple(), Vector3.forward);
+                    gizmoRange = 10f;
+                    bullet.SetBehaviour(new BulletSimple(), enemyDirection);
                     break;
             }
         }
@@ -84,6 +109,12 @@ namespace Turret
         private void IncrementTimeToShoot()
         {
             _timeRef = Time.time + frequency;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, gizmoRange);
         }
     }
 }
