@@ -4,7 +4,7 @@ namespace Bullet
 {
     public class BulletExplosive : IBulletBehaviour
     {
-        private const float Speed = 10f;
+        private const float Speed = 5f;
 
         public void Move(Transform transform, Vector3 direction)
         {
