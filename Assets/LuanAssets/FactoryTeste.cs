@@ -1,33 +1,34 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class FactoryTeste : MonoBehaviour
 {
+    /*public Mesh[] meshs;
+    public Material[] materials;*/
+
     public GameObject[] enemys;
     public Transform[] spawners;
-    int spawnCount;
-    private int spawnIndex = 0;
+    public int spawnindex, spawnCount;
 
-    private void Start()
-    {
-        spawnCount = 6;
-        StartCoroutine(Spawn());
-    }
-    IEnumerator Spawn()
-    {
+    bool canCall = true;
+    IEnumerator Spaw()
+    {    
         for (int i = 0; i < spawnCount; i++)
         {
-            Instantiate(Factory.CreateObject(enemys[spawnIndex], spawnIndex), spawners[Random.Range(0, spawners.Length)]);
-            yield return new WaitForSeconds(0.5f);
+            Debug.Log("Corrotina");
+            Instantiate(Factory.CreateObject(enemys[Random.Range(0,enemys.Length)]), spawners[Random.Range(0, spawners.Length)]);
+            yield return new WaitForSeconds(1f);
         }
+        canCall = true;
+    }
 
-        spawnCount += 3;
-        yield return new WaitForSeconds(2f);
-
-        if (spawnCount >= 12) yield break;
-        StartCoroutine(Spawn());
+    public void Update()
+    {       
+        if (Input.GetKeyDown(KeyCode.S) && canCall)
+        {
+            StartCoroutine(Spaw());
+            canCall = false;          
+        }       
     }
 }
