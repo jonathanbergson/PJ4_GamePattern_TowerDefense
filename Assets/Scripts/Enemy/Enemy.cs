@@ -23,16 +23,17 @@ public class Enemy : MonoBehaviour
              life--;
              CheckLifes();
          }
-         if(other.CompareTag("Tower"))
-             Debug.Log("Vida player");
+
+         if (other.CompareTag("Tower"))
+             Tower.Tower.Instance.LoseLifes();
      }
 
      private void CheckLifes()
      {
          if (life <= 0)
          {
+             Tower.Tower.Instance.AddScore();
              Destroy(gameObject);
-             //pontuaçao
          }
      }
 }

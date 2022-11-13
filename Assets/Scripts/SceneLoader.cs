@@ -20,10 +20,15 @@ public class SceneLoader : MonoBehaviour
 
     public void Game()
     {
-        SceneManager.LoadScene(1);
+       GameManager.Instance.ChangeScene(1);
     }
     public void Initial()
     {
-        SceneManager.LoadScene(0);
+        GameManager.Instance.ChangeScene(0);
+    }
+
+    public void GoToEnd()
+    {
+        GameManager.Instance.ChangeScene(2);
     }
 }
