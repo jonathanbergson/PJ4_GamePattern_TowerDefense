@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class Factory : MonoBehaviour
 {
-    public static GameObject CreateObject(GameObject enemy)
+    public static GameObject CreateObject(GameObject enemy, int index)
     {
-        //enemy.GetComponent<Enemy>().speed = FlyWeight.maxSpeed; 
-
-
-        /*GameObject obj = new GameObject();
-        obj.AddComponent<MeshRenderer>();
-        obj.AddComponent<MeshFilter>();
-        obj.GetComponent<MeshFilter>().mesh = mesh;
-        obj.GetComponent<MeshRenderer>().material = material;
-        obj.AddComponent<Rigidbody>();
-        obj.AddComponent<BoxCollider>();*/
+        if (index == 0)
+            enemy.GetComponent<Enemy>().SetType(new EnemyRedFlyweight());
+        else
+            enemy.GetComponent<Enemy>().SetType(new EnemyBlueFlyweight());
+        
         return enemy;
     }
 }

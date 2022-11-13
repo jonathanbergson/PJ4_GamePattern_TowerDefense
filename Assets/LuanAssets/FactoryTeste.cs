@@ -11,7 +11,6 @@ public class FactoryTeste : MonoBehaviour
     int spawnCount;
     private int spawnIndex = 0;
     
-
     private void Start()
     {
         spawnCount = 6;
@@ -21,7 +20,7 @@ public class FactoryTeste : MonoBehaviour
     {
         for (int i = 0; i < spawnCount; i++)
         {
-            Instantiate(Factory.CreateObject(enemys[spawnIndex]), spawners[Random.Range(0, spawners.Length)]);
+            Instantiate(Factory.CreateObject(enemys[spawnIndex], spawnIndex), spawners[Random.Range(0, spawners.Length)]);
             yield return new WaitForSeconds(0.5f);
         }
 
