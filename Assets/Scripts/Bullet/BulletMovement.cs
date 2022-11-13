@@ -22,5 +22,13 @@ namespace Bullet
             _bulletBehaviour = type;
             _direction = direction;
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag(Constants.TagEnemy))
+            {
+                Destroy(gameObject, 0.1f);
+            }
+        }
     }
 }
