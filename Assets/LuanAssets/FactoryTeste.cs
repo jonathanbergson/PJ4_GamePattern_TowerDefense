@@ -17,7 +17,7 @@ public class FactoryTeste : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             Debug.Log("Corrotina");
-            Instantiate(Factory.CreateObject(enemys[spawnindex]), spawners[Random.Range(0, spawners.Length)]);
+            Instantiate(Factory.CreateObject(enemys[Random.Range(0,enemys.Length)]), spawners[Random.Range(0, spawners.Length)]);
             yield return new WaitForSeconds(1f);
         }
         canCall = true;
