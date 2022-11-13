@@ -10,11 +10,11 @@ public class FactoryTeste : MonoBehaviour
     public Transform[] spawners;
     int spawnCount;
     private int spawnIndex = 0;
-    
+
     private void Start()
     {
         spawnCount = 6;
-        StartCoroutine(Spawn());
+        // StartCoroutine(Spawn());
     }
     IEnumerator Spawn()
     {
