@@ -40,10 +40,12 @@ namespace Turret
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 bulletType = BulletTypes.Simple;
+                ClearTimeToShoot();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 bulletType = BulletTypes.Explosive;
+                ClearTimeToShoot();
             }
         }
 
@@ -51,8 +53,8 @@ namespace Turret
         {
             if (Time.time >= _timeRef == false) return;
 
-            _timeRef = Time.time + frequency;
             Shoot();
+            IncrementTimeToShoot();
         }
 
         private void Shoot()
@@ -68,10 +70,20 @@ namespace Turret
                     break;
                 case BulletTypes.Simple:
                 default:
-                    frequency = 1.0f;
+                    frequency = 0.5f;
                     bullet.SetBehaviour(new BulletSimple(), Vector3.forward);
                     break;
             }
+        }
+
+        private void ClearTimeToShoot()
+        {
+            _timeRef = Time.time;
+        }
+
+        private void IncrementTimeToShoot()
+        {
+            _timeRef = Time.time + frequency;
         }
     }
 }
