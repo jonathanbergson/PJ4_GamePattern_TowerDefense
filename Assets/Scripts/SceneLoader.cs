@@ -13,22 +13,12 @@ public class SceneLoader : MonoBehaviour
     private void Awake()
     {
         if(play)
-            play.onClick.AddListener(Game);
+            play.onClick.AddListener(delegate { Scene(1); });
         if(back)
-            back.onClick.AddListener(Initial);
+            back.onClick.AddListener(delegate { Scene(0); });
     }
-
-    public void Game()
+    public void Scene(int scene)
     {
-       GameManager.Instance.ChangeScene(1);
-    }
-    public void Initial()
-    {
-        GameManager.Instance.ChangeScene(0);
-    }
-
-    public void GoToEnd()
-    {
-        GameManager.Instance.ChangeScene(2);
+       GameManager.Instance.ChangeScene(scene);
     }
 }
