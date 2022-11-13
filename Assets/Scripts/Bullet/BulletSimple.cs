@@ -4,7 +4,7 @@ namespace Bullet
 {
     public class BulletSimple : IBulletBehaviour
     {
-        private const float Speed = 2f;
+        private const float Speed = 14f;
 
         public void Move(Transform transform, Vector3 direction)
         {
