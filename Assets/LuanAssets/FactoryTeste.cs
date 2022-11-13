@@ -14,7 +14,7 @@ public class FactoryTeste : MonoBehaviour
     private void Start()
     {
         spawnCount = 6;
-        // StartCoroutine(Spawn());
+        StartCoroutine(Spawn());
     }
     IEnumerator Spawn()
     {
