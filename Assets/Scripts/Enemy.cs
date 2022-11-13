@@ -6,21 +6,33 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-     //public Flyweight flyweight;
-     private int life;
-     private float speed;
-     [SerializeField] Transform tower;
-     [SerializeField] NavMeshAgent navMeshAgent;
-    
+    [SerializeField] NavMeshAgent navMeshAgent;
+    private int life;
 
-     private void Start()
+     public void SetType(EnemyFlyweight type)
      {
-         /* life = flyweight.maxLife;
-          speed = flyweight.maxSpeed;
+         life = type.MaxLife;
+         navMeshAgent.speed = type.MaxSpeed;
+         navMeshAgent.SetDestination(type.Tower.position);
+     }
 
-          tower = flyweight.tower;*/
-         speed = 2;
-         navMeshAgent.speed = speed;
-         navMeshAgent.SetDestination(tower.position);
+     private void OnTriggerEnter(Collider other)
+     {
+         if (other.CompareTag("Bullet"))
+         {
+             life--;
+             CheckLifes();
+         }
+         if(other.CompareTag("Tower"))
+             Debug.Log("Vida player");
+     }
+
+     private void CheckLifes()
+     {
+         if (life <= 0)
+         {
+             Destroy(gameObject);
+             //pontuaçao
+         }
      }
 }

@@ -4,13 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum TypeOfEnemy
+public class EnemyRedFlyweight : EnemyFlyweight
 {
-   EnemyRed, EnemyBlue
+   public new int MaxLife = 5;
+   public new float MaxSpeed = 8f;
 }
-public class Flyweight : MonoBehaviour
+
+public class EnemyBlueFlyweight : EnemyFlyweight
 {
-   public int maxLife = 11;
-   public float maxSpeed = 11f;
-   public Transform tower;
+    public new int MaxLife = 8;
+    public new float MaxSpeed = 4f;
+}
+public abstract class EnemyFlyweight
+{
+    public int MaxLife;
+    public float MaxSpeed;
+    public Transform Tower;
+
+    public EnemyFlyweight()
+    {
+        //Tower = GameObject.FindGameObjectWithTag(Constants.TagTower).transform;
+    }
 }
