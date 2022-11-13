@@ -23,6 +23,6 @@ public abstract class EnemyFlyweight
 
     public EnemyFlyweight()
     {
-        //Tower = GameObject.FindGameObjectWithTag(Constants.TagTower).transform;
+        Tower = GameObject.FindGameObjectWithTag(Constants.TagTower).transform;
     }
 }
