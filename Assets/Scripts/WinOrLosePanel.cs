@@ -8,12 +8,9 @@ public class WinOrLosePanel : MonoBehaviour
 {
     [SerializeField] private Material[] skyboxes;
     [SerializeField] private TextMeshProUGUI winOrLoseText;
-
-    public bool win;
-
     private void Start()
     {
-        if (win)
+        if (GameManager.Instance.winTheGame)
         {
             RenderSettings.skybox = skyboxes[0];
             winOrLoseText.text = "Você ganhou :D";
