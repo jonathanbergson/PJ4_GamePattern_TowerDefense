@@ -12,7 +12,7 @@ public class AudioPlayer : MonoBehaviour
     {
         audioSource = FindObjectOfType<Camera>().GetComponent<AudioSource>();
         audioSource.pitch = Random.Range(0.6f, 1.6f);
-        if(!morte || ambos)
+        if(!morte || ambos && audioSource)
             audioSource.PlayOneShot(startAudio);
     }
 
