@@ -20,7 +20,14 @@ public class FactoryTeste : MonoBehaviour
     {
         for (int i = 0; i < spawnCount; i++)
         {
-            Instantiate(Factory.CreateObject(enemys[spawnIndex], spawnIndex), spawners[Random.Range(0, spawners.Length)]);
+            spawnIndex = Random.Range(0, 2);
+            GameObject enemy = Instantiate(Factory.CreateObject(enemys[spawnIndex]), spawners[Random.Range(0, spawners.Length)]);
+            
+            if (spawnIndex == 0)
+                enemy.GetComponent<Enemy>().SetType(new EnemyRedFlyweight());
+            else
+                enemy.GetComponent<Enemy>().SetType(new EnemyBlueFlyweight());
+            
             yield return new WaitForSeconds(0.5f);
         }
 
