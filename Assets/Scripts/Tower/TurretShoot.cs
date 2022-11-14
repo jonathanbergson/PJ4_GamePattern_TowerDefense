@@ -6,20 +6,20 @@ namespace Tower
     public class TurretShoot : MonoBehaviour
     {
         private float _timeRef;
-        [SerializeField] protected float frequency = 1f;
-        [SerializeField] protected float gizmoRange = 10f;
+        private float _frequency = 1f;
+        private float _gizmoRange = 10f;
 
         [Header("Bullet")]
         [SerializeField] private BulletMovement bulletPrefab;
         [SerializeField] private Transform bulletSpawnPoint;
-        [SerializeField] private BulletTypes bulletType = BulletTypes.Simple;
+        [SerializeField] private BulletTypes bulletType = BulletTypes.Explosive;
 
-        [Header("Enemie")]
+        [Header("Enemy")]
         [SerializeField] private Transform enemyTransform;
 
         private void Start()
         {
-            _timeRef = Time.time + frequency;
+            _timeRef = Time.time + _frequency;
         }
 
         private void Update()
@@ -46,7 +46,7 @@ namespace Tower
                 }
             }
 
-            if (enemyClose != null && distanceToEnemyClose < gizmoRange)
+            if (enemyClose != null && distanceToEnemyClose < _gizmoRange)
             {
                 enemyTransform = enemyClose.transform;
             }
@@ -60,13 +60,31 @@ namespace Tower
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                bulletType = BulletTypes.Simple;
+                bulletType = BulletTypes.Explosive;
+                SetupShootInfo();
                 ClearTimeToShoot();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                bulletType = BulletTypes.Explosive;
+                bulletType = BulletTypes.Simple;
+                SetupShootInfo();
                 ClearTimeToShoot();
+            }
+        }
+
+        private void SetupShootInfo()
+        {
+            switch (bulletType)
+            {
+                case BulletTypes.Explosive:
+                    _frequency = 1f;
+                    _gizmoRange = 30f;
+                    break;
+                case BulletTypes.Simple:
+                default:
+                    _frequency = 0.5f;
+                    _gizmoRange = 14f;
+                    break;
             }
         }
 
@@ -74,11 +92,14 @@ namespace Tower
         {
             if (Time.time >= _timeRef == false) return;
 
-            if (enemyTransform) Shoot();
-            IncrementTimeToShoot();
+            if (enemyTransform)
+            {
+                InstantiateShoot();
+                IncrementTimeToShoot();
+            }
         }
 
-        private void Shoot()
+        private void InstantiateShoot()
         {
             BulletMovement bullet = Instantiate(bulletPrefab, null);
             bullet.transform.position = bulletSpawnPoint.position;
@@ -88,14 +109,10 @@ namespace Tower
             switch (bulletType)
             {
                 case BulletTypes.Explosive:
-                    frequency = 3f;
-                    gizmoRange = 5f;
                     bullet.SetBehaviour(new BulletExplosive(), enemyDirection);
                     break;
                 case BulletTypes.Simple:
                 default:
-                    frequency = 0.5f;
-                    gizmoRange = 10f;
                     bullet.SetBehaviour(new BulletSimple(), enemyDirection);
                     break;
             }
@@ -108,13 +125,13 @@ namespace Tower
 
         private void IncrementTimeToShoot()
         {
-            _timeRef = Time.time + frequency;
+            _timeRef = Time.time + _frequency;
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, gizmoRange);
+            Gizmos.DrawWireSphere(transform.position, _gizmoRange);
         }
     }
 }

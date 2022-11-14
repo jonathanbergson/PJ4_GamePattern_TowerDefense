@@ -4,16 +4,13 @@ namespace Bullet
 {
     public class BulletSimple : IBulletBehaviour
     {
-        private const float Speed = 14f;
+        private const float Speed = 12f;
 
         public void Move(Transform transform, Vector3 direction)
         {
             transform.Translate(direction * Speed * Time.deltaTime);
         }
 
-        public void OnTriggerEnter(GameObject gameObject)
-        {
-            // gameObject.Destroy(gameObject, 0.1f);
-        }
+        public void OnTriggerEnter(GameObject gameObject) {}
     }
 }
