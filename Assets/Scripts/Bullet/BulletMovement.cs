@@ -27,7 +27,9 @@ namespace Bullet
         {
             if (other.gameObject.CompareTag(Constants.TagEnemy))
             {
-                Destroy(gameObject, 0.1f);
+                _bulletBehaviour?.OnTriggerEnter(gameObject);
+                Debug.Log(other.gameObject.name);
+                Destroy(gameObject, 0.15f);
             }
         }
     }

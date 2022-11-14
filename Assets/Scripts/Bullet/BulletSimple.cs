@@ -10,5 +10,10 @@ namespace Bullet
         {
             transform.Translate(direction * Speed * Time.deltaTime);
         }
+
+        public void OnTriggerEnter(GameObject gameObject)
+        {
+            // gameObject.Destroy(gameObject, 0.1f);
+        }
     }
 }
