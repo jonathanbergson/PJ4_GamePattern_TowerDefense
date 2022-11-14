@@ -12,7 +12,7 @@ namespace Tower
         [Header("Bullet")]
         [SerializeField] private BulletMovement bulletPrefab;
         [SerializeField] private Transform bulletSpawnPoint;
-        [SerializeField] private BulletTypes bulletType = BulletTypes.Explosive;
+        [SerializeField] private BulletTypes bulletType;
 
         [Header("Enemy")]
         [SerializeField] private Transform enemyTransform;
@@ -20,6 +20,8 @@ namespace Tower
         private void Start()
         {
             _timeRef = Time.time + _frequency;
+            bulletType = BulletTypes.Explosive;
+            SetupShootInfo();
         }
 
         private void Update()
