@@ -24,22 +24,16 @@ public class Enemy : MonoBehaviour
          if (other.CompareTag("Bullet"))
          {
              life--;
-             CheckLifes();
+             if (life <= 0)
+             {
+                 Tower.Tower.Instance.AddScore();
+                 Destroy(gameObject);
+             }
          }
 
          if (other.CompareTag("Tower"))
          {
              Tower.Tower.Instance.LoseLifes();
-             Destroy(gameObject);
-         }
-             
-     }
-
-     private void CheckLifes()
-     {
-         if (life <= 0)
-         {
-             Tower.Tower.Instance.AddScore();
              Destroy(gameObject);
          }
      }
