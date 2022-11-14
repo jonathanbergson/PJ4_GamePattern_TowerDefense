@@ -7,16 +7,19 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] NavMeshAgent navMeshAgent;
-    private int life;
+    int life;
+    private Transform target;
+    
+    public void SetType(EnemyFlyweight type)
+    {
+        life = type.MaxLife;
+        navMeshAgent.speed = type.MaxSpeed;
+        target = type.Tower.transform;
 
-     public void SetType(EnemyFlyweight type)
-     {
-         life = type.MaxLife;
-         navMeshAgent.speed = type.MaxSpeed;
-         navMeshAgent.SetDestination(type.Tower.position);
-     }
+        navMeshAgent.SetDestination(target.position);
+    }
 
-     private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
      {
          if (other.CompareTag("Bullet"))
          {
@@ -25,7 +28,11 @@ public class Enemy : MonoBehaviour
          }
 
          if (other.CompareTag("Tower"))
+         {
              Tower.Tower.Instance.LoseLifes();
+             Destroy(gameObject);
+         }
+             
      }
 
      private void CheckLifes()

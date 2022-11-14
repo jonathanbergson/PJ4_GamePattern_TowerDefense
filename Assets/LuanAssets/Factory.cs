@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class Factory : MonoBehaviour
 {
-    public static GameObject CreateObject(GameObject enemy, int index)
+    public static GameObject CreateObject(GameObject enemy)
     {
-        if (index == 0)
-            enemy.GetComponent<Enemy>().SetType(new EnemyRedFlyweight());
-        else
-            enemy.GetComponent<Enemy>().SetType(new EnemyBlueFlyweight());
-        
         return enemy;
     }
 }
