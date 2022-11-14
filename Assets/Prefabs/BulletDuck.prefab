@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1852352881318878489}
   - component: {fileID: 1852352881318878491}
   - component: {fileID: 1316862811858819702}
+  - component: {fileID: 5163753040149615867}
   m_Layer: 0
   m_Name: BulletDuck
   m_TagString: Untagged
@@ -171,6 +172,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &5163753040149615867
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852352881318878488}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1001 &1852352882133307564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -242,7 +256,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Duck
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1193953107, guid: f813ab5b9ba58d0488c8ee5fee097ff9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f813ab5b9ba58d0488c8ee5fee097ff9, type: 3}
 --- !u!4 &8396789253050819796 stripped
 Transform:
