@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class EnemyRedFlyweight : EnemyFlyweight
 {
    public int _MaxLife = 3;
-   public float _MaxSpeed = 4f;
+   public float _MaxSpeed = 2f;
    
    public EnemyRedFlyweight()
    {
@@ -19,7 +19,7 @@ public class EnemyRedFlyweight : EnemyFlyweight
 public class EnemyBlueFlyweight : EnemyFlyweight
 {
     public int _MaxLife = 6;
-    public float _MaxSpeed = 2f;
+    public float _MaxSpeed = 1f;
 
     public EnemyBlueFlyweight()
     {
