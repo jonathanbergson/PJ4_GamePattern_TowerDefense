@@ -29,7 +29,7 @@ namespace Bullet
             {
                 _bulletBehaviour?.OnTriggerEnter(gameObject);
                 Debug.Log(other.gameObject.name);
-                Destroy(gameObject, 0.15f);
+                Destroy(this.gameObject);
             }
         }
     }
